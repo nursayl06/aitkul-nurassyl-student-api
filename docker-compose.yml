@@ -1,0 +1,44 @@
+name: aitkul-nurassyl-student-api
+
+services:
+  db:
+    image: postgres:17
+    container_name: aitkul-nurassyl-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - aitkul-nurassyl-pgdata:/var/lib/postgresql/data
+    networks:
+      - aitkul-nurassyl-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  app:
+    build: .
+    image: aitkul-nurassyl-student-api:v1.0-37375
+    container_name: aitkul-nurassyl-student-api
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/${POSTGRES_DB}
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      APP_VERSION: "1.0.0"
+    ports:
+      - "8081:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - aitkul-nurassyl-net
+    restart: unless-stopped
+
+volumes:
+  aitkul-nurassyl-pgdata:
+
+networks:
+  aitkul-nurassyl-net:
