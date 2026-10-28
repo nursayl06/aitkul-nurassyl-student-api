@@ -21,13 +21,13 @@ services:
 
   app:
     build: .
-    image: aitkul-nurassyl-student-api:v1.0-37375
+    image: aitkul-nurassyl-student-api:v1.1-37375
     container_name: aitkul-nurassyl-student-api
     environment:
       DB_URL: jdbc:postgresql://db:5432/${POSTGRES_DB}
       DB_USER: ${POSTGRES_USER}
       DB_PASSWORD: ${POSTGRES_PASSWORD}
-      APP_VERSION: "1.0.0"
+      APP_VERSION: "1.1.0"
     ports:
       - "8081:8080"
     depends_on:
