@@ -26,3 +26,7 @@ EOF
 
 ## Change log
 - feature/aitkul-nurassyl-crud: Aitkul Nurassyl added the PUT operation to update a student.
+
+## CI/CD
+Jenkins job Aitkul_Nurassyl_Student_API runs Checkout, Build, Test, Docker Build and Verify.
+It checks GitHub every minute (Poll SCM) and starts a build automatically after a new commit.
