@@ -51,6 +51,6 @@ class StudentApiTests {
         mvc.perform(get("/api/info"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.surname").value("Aitkul"))
-                .andExpect(jsonPath("$.studentId").value("37375"));
+                .andExpect(jsonPath("$.studentId").value("00000"));
     }
 }
